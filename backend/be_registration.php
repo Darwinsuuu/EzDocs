@@ -49,7 +49,7 @@ if (isset($_POST["btnCreateAccount"])) {
                 $errorMsg = mysqli_error($conn);
                 header("Location: ../registration.php?studentId=$studentId&firstname=$firstname&middlename=$middlename&lastname=$lastname&suffix=$suffix&gradeLevel=$gradeLevel&phoneNumber=$phoneNumber&emailAddress=$emailAddress&errorMsg=" . $errorMsg);
             }
-
+            
         }
 
 

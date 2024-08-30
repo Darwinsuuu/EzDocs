@@ -33,11 +33,6 @@ include_once("_conn/session.php");
             </li>
             <li>
                 <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="#">
-                    Documents
-                </a>
-            </li>
-            <li>
-                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="#">
                     FAQs
                 </a>
             </li>
@@ -56,7 +51,10 @@ include_once("_conn/session.php");
             <h1 class="text-[32px] font-bold">Hi there, <br><?php echo $_SESSION['fullName']; ?></h1>
 
             <div class="flex flex-col gap-5">
-                <div class="flex flex-row items-start gap-8">
+                <?php
+                    include ('backend/be_countreq.php');
+                ?>
+                <!-- <div class="flex flex-row items-start gap-8">
                     <div class="flex flex-col items-center">
                         <p class="font-bold text-[26px]">20</p>
                         <h2 class="font-medium text-[18px]">Total Requests</h2>
@@ -65,15 +63,18 @@ include_once("_conn/session.php");
                         <p class="font-bold text-[26px]">10</p>
                         <h2 class="font-medium text-[18px]">Pending Requests</h2>
                     </div>
-                </div>
+                </div> -->
 
-                <button class="btn btn-primary px-6 py-2">Request Document</button>
+                <a class="btn btn-primary px-6 py-2" href="reqdocument.php">Request Document</a>
             </div>
         </div>
 
-        <!-- ge -->
+
         <div class="rounded shadow-lg mt-2 px-3 py-5">
-            <table class="table" id="documentTableStudent">
+            <?php
+            include_once('backend/be_showdashtable.php');
+            ?>
+            <!-- <table class="table" id="documentTableStudent">
                 <thead>
                     <tr>
                         <th scope="col">QR</th>
@@ -84,6 +85,7 @@ include_once("_conn/session.php");
                     </tr>
                 </thead>
                 <tbody>
+
                     <tr>
                         <td class="align-middle" scope="row">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg"
@@ -97,17 +99,17 @@ include_once("_conn/session.php");
                         </td>
                     </tr>
                 </tbody>
-            </table>
+            </table> -->
         </div>
 
     </div>
 
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#documentTableStudent').DataTable();
         });
 
-        $('#btnLogout').click(function (e) {
+        $('#btnLogout').click(function(e) {
 
             Swal.fire({
                 title: "SIGN OUT",
