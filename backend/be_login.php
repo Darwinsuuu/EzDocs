@@ -3,6 +3,7 @@
 if (isset($_POST["btnLogin"])) {
 
     try {
+        session_start();
         include("../_conn/connection.php");
 
         // Get Data
@@ -16,15 +17,15 @@ if (isset($_POST["btnLogin"])) {
             while ($row = mysqli_fetch_assoc($result)) {
                 
                 // Check if password is valid
-                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                if (password_verify($password, $hashed_password)) {
+
+                if (password_verify($password, $row['password'])) {
+                    echo "test";
                     // Store studentId and emailAddress to session
                     $_SESSION['studentId'] = $row["studentId"];
                     $_SESSION['fullName'] = $row["firstname"] . " " . $row["middlename"] . " " . $row["lastname"] . " " . $row["suffix"];
                     $_SESSION['emailAddress'] = $row["emailAddress"];
                     
-                    echo 'test';
-                    header("Location: ../login.php");
+                    header("Location: ../index.php");
                     exit();
                 }
 

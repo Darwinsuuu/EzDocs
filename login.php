@@ -1,7 +1,3 @@
-<?php
-    include("_conn/session.php");
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
