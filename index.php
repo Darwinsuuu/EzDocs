@@ -119,11 +119,6 @@ include_once("_conn/session.php");
                 confirmButtonText: "Logout"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "Deleted!",
-                        text: "Your file has been deleted.",
-                        icon: "success"
-                    });
                     window.location.href = "backend/be_logout.php";
                 }
             });
