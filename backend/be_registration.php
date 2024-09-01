@@ -49,18 +49,9 @@ if (isset($_POST["btnCreateAccount"])) {
                 $errorMsg = mysqli_error($conn);
                 header("Location: ../registration.php?studentId=$studentId&firstname=$firstname&middlename=$middlename&lastname=$lastname&suffix=$suffix&gradeLevel=$gradeLevel&phoneNumber=$phoneNumber&emailAddress=$emailAddress&errorMsg=" . $errorMsg);
             }
-            
         }
-
-
-
-
-
         mysqli_close($conn);
     } catch (Exception $e) {
-        header("Location: ../registration.php?studentId=$studentId&firstname=$firstname&middlename=$middlename&lastname=$lastname&suffix=$suffix&gradeLevel=$gradeLevel&phoneNumber=$phoneNumber&emailAddress=$emailAddress&errorMsg=". $e->getMessage());
+        header("Location: ../registration.php?studentId=$studentId&firstname=$firstname&middlename=$middlename&lastname=$lastname&suffix=$suffix&gradeLevel=$gradeLevel&phoneNumber=$phoneNumber&emailAddress=$emailAddress&errorMsg=" . $e->getMessage());
     }
-
 }
-
-?>

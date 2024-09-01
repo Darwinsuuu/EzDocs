@@ -79,10 +79,10 @@ include_once("_conn/session.php");
                     <label>Document Request</label>
                     <select name="reqDoc" class="form-control">
                         <option disabled selected>-- Select option --</option>
-                        <option value="coe">Certificate of Enrollment</option>
-                        <option value="goodMoral">Good Moral</option>
-                        <option value="f137">Form 137/138</option>
-                        <option value="diploma">Diploma</option>
+                        <option value="Certificate of Enrollment">Certificate of Enrollment</option>
+                        <option value="Good Moral">Good Moral</option>
+                        <option value="Form 137/138">Form 137/138</option>
+                        <option value="Diploma">Diploma</option>
                     </select>
                 </div>
                 <div class="col-span-2 mb-2">

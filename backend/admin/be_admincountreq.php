@@ -1,7 +1,6 @@
 <?php
 try {
-    //session_start();
-    include("_conn/connection.php");
+    include("../_conn/connection.php");
 
     // Query to get total document requests
     $totalQuery = "SELECT COUNT(*) AS total_requests FROM ezdrequesttbl";
