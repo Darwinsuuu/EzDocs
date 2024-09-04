@@ -32,8 +32,8 @@ include_once("_conn/session.php");
                 </a>
             </li>
             <li>
-                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="#">
-                    FAQs
+                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="claim/claim_history.php">
+                    Claimed History
                 </a>
             </li>
             <li>
@@ -51,19 +51,6 @@ include_once("_conn/session.php");
             <h1 class="text-[32px] font-bold">Hi there, <br><?php echo $_SESSION['fullName']; ?></h1>
 
             <div class="flex flex-col gap-5">
-                <?php
-                    include ('backend/be_countreq.php');
-                ?>
-                <!-- <div class="flex flex-row items-start gap-8">
-                    <div class="flex flex-col items-center">
-                        <p class="font-bold text-[26px]">20</p>
-                        <h2 class="font-medium text-[18px]">Total Requests</h2>
-                    </div>
-                    <div class="flex flex-col items-center">
-                        <p class="font-bold text-[26px]">10</p>
-                        <h2 class="font-medium text-[18px]">Pending Requests</h2>
-                    </div>
-                </div> -->
 
                 <a class="btn btn-primary px-6 py-2" href="reqdocument.php">Request Document</a>
             </div>
@@ -103,6 +90,53 @@ include_once("_conn/session.php");
         </div>
 
     </div>
+    <script>
+$(document).ready(function() {
+    function fetchStatuses() {
+        $.ajax({
+            url: 'backend/be_getstatus.php',
+            type: 'GET',
+            success: function(response) {
+                const statuses = JSON.parse(response);
+                statuses.forEach(function(status) {
+                    $(`#status-${status.id}`).text(status.status);
+                });
+            }
+        });
+    }
+
+    // Fetch statuses every 30 seconds
+    setInterval(fetchStatuses, 30000);
+});
+</script>
+<script>
+function pollStatus() {
+    const studentId = <?php echo json_encode($student_id); ?>; // Ensure $student_id is available in your page
+
+    fetch('path/to/status_poll.php?student_id=' + studentId)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update the dashboard with new statuses
+                updateDashboard(data.updates);
+            } else {
+                console.error(data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+// Update your dashboard with new statuses
+function updateDashboard(updates) {
+    // Implement your logic to update the dashboard UI
+    console.log(updates);
+}
+
+// Poll every 10 seconds
+setInterval(pollStatus, 10000);
+</script>
+
+
 
     <script>
         $(document).ready(function() {

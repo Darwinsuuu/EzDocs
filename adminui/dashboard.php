@@ -1,7 +1,41 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Initialize DataTables
+        $('#documentTableStudent').DataTable();
+
+        // Handle dropdown change
+        $('.status-dropdown').change(function() {
+            const id = $(this).data('id');
+            const newStatus = $(this).val();
+
+            $.ajax({
+                url: '../backend/admin/adminupdate.php',
+                type: 'POST',
+                data: {
+                    id: id,
+                    status: newStatus
+                },
+                success: function(response) {
+                    const result = JSON.parse(response);
+                    if (result.success) {
+                        // Update status display in the table
+                        $(`#status-${id} p`).text(newStatus);
+                    } else {
+                        alert('Failed to update status: ' + result.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('Error updating status');
+                }
+            });
+        });
+    });
+</script>
+
+
 <?php
-
 include_once("../_conn/adminsession.php");
-
 ?>
 
 <!DOCTYPE html>
@@ -27,13 +61,13 @@ include_once("../_conn/adminsession.php");
         <h1 class="font-bold text-[26px] text-white">EZDocs</h1>
         <ul class="flex flex-row gap-x-4 !p-0 !m-0 list-none">
             <li>
-                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="index.php">
+                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="dashboard.php">
                     Dashboard
                 </a>
             </li>
             <li>
                 <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="#">
-                    FAQs
+                    Claimed History
                 </a>
             </li>
             <li>
@@ -52,7 +86,7 @@ include_once("../_conn/adminsession.php");
 
             <div class="flex flex-col gap-5">
                 <?php
-                    include ('../backend/admin/be_admincountreq.php');
+                include('../backend/admin/be_admincountreq.php');
                 ?>
                 <!-- <div class="flex flex-row items-start gap-8">
                     <div class="flex flex-col items-center">
@@ -65,7 +99,7 @@ include_once("../_conn/adminsession.php");
                     </div>
                 </div> -->
 
-                <a class="btn btn-primary px-6 py-2" href="reqdocument.php">Request Document</a>
+                <a class="btn btn-primary px-6 py-2" href="adminedit.php">Edit Document</a>
             </div>
         </div>
 
@@ -103,6 +137,66 @@ include_once("../_conn/adminsession.php");
         </div>
 
     </div>
+    <script>
+        $(document).ready(function() {
+            // Initialize DataTables
+            $('#documentTableStudent').DataTable();
+
+            // Handle dropdown change
+            $('.status-dropdown').change(function() {
+                const id = $(this).data('id');
+                const newStatus = $(this).val();
+
+                $.ajax({
+                    url: '../backend/admin/adminupdate.php',
+                    type: 'POST',
+                    data: {
+                        id: id,
+                        status: newStatus
+                    },
+                    success: function(response) {
+                        const result = JSON.parse(response);
+                        if (result.success) {
+                            // Update status display in the table
+                            $(`#status-${id}`).text(newStatus);
+                        } else {
+                            alert('Failed to update status: ' + result.message);
+                        }
+                    },
+                    error: function() {
+                        alert('Error updating status');
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.status-dropdown').change(function() {
+                var status = $(this).val();
+                var id = $(this).data('id');
+
+                $.ajax({
+                    url: '../backend/admin/update_status.php',
+                    type: 'POST',
+                    data: {
+                        id: id,
+                        status: status
+                    },
+                    success: function(response) {
+                        console.log('Status updated successfully.');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error updating status:', error);
+                    }
+                });
+            });
+        });
+    </script>
+
+
+
 
     <script>
         $(document).ready(function() {

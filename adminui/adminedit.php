@@ -1,5 +1,5 @@
 <?php
-include_once("_conn/session.php");
+include_once("../_conn/session.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,8 +9,8 @@ include_once("_conn/session.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Request Document</title>
     <?php
-    include("_includes/styles.php");
-    include("_includes/scripts.php");
+    include("../_includes/styles.php");
+    include("../_includes/scripts.php");
     ?>
 </head>
 
@@ -20,7 +20,7 @@ include_once("_conn/session.php");
         <h1 class="font-bold text-[26px] text-white">EZDocs</h1>
         <ul class="flex flex-row gap-x-4 !p-0 !m-0 list-none">
             <li>
-                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="index.php">
+                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="dashboard.php">
                     Dashboard
                 </a>
             </li>
@@ -40,10 +40,10 @@ include_once("_conn/session.php");
 
     <div class="container pt-5">
 
-        <form method="POST" class="shadow-md rounded p-3 w-full max-w-[500px] m-auto" action="backend/be_requestdoc.php">
+        <form method="POST" class="shadow-md rounded p-3 w-full max-w-[500px] m-auto" action="../backend/be_adminedit.php">
             <h1 class="text-[32px] !text-left">Welcome to EzDocs</h1>
             <p class="text-[14px] text-gray-600 mb-4">
-                Please enter your credentials. We'll make sure your data is safe with us.
+                Update student requested document.
             </p>
             <?php
 
@@ -58,11 +58,11 @@ include_once("_conn/session.php");
             <div class="grid grid-cols-2 gap-x-2">
                 <div class="col-span-2 mb-2">
                     <label>Student ID No.</label>
-                    <input class="form-control" type="text" name="studentID" value="<?php echo $_SESSION['studentId']; ?>" disabled>
+                    <input class="form-control" type="text" name="studentID">
                 </div>
                 <div class="col-span-2 mb-2">
                     <label>Student Name</label>
-                    <input class="form-control" type="text" name="studentName" value="<?php echo $_SESSION['fullName']; ?>" disabled>
+                    <input class="form-control" type="text" name="studentName">
                 </div>
 
                 <div class="col-span-2 mb-2">
@@ -94,7 +94,7 @@ include_once("_conn/session.php");
                 </div>
             </div>
 
-            <button class="btn btn-primary py-2 mt-2 w-full" type="submit" name="btnreqdoc">Request</button>
+            <button class="btn btn-primary py-2 mt-2 w-full" type="submit" name="btneditdoc">Save</button>
 
         </form>
     </div>
