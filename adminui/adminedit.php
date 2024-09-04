@@ -7,7 +7,7 @@ include_once("../_conn/session.php");
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Request Document</title>
+    <title>Edit Document</title>
     <?php
     include("../_includes/styles.php");
     include("../_includes/scripts.php");
@@ -40,7 +40,7 @@ include_once("../_conn/session.php");
 
     <div class="container pt-5">
 
-        <form method="POST" class="shadow-md rounded p-3 w-full max-w-[500px] m-auto" action="../backend/be_adminedit.php">
+        <form method="POST" class="shadow-md rounded p-3 w-full max-w-[500px] m-auto" action="../backend/admin/be_adminedit.php">
             <h1 class="text-[32px] !text-left">Welcome to EzDocs</h1>
             <p class="text-[14px] text-gray-600 mb-4">
                 Update student requested document.
