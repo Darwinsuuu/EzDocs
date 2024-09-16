@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,8 +11,29 @@
     include("_includes/scripts.php");
     ?>
 
+<link rel="stylesheet" href="css/_global.css">
+    <style>
+        .requirements {
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+        .requirement {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .requirement span {
+            margin-right: 10px;
+            font-size: 1.2em; /* Adjust the size as needed */
+        }
+        .valid {
+            color: green;
+        }
+        .invalid {
+            color: red;
+        }
+    </style>
 </head>
-
 <body>
 
     <div class="flex flex-col items-center justify-center h-screen w-full">
@@ -94,22 +114,19 @@
                                 echo 'selected'; ?>>Grade 12
                             </option>
                         </select>
-
                     </div>
 
                     <div class="mb-3 col-span-3">
-                        <label for="inputPhoneNumber" class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" id="inputPhoneNumber" aria-describedby="phoneNumber"
-                            name="inputPhoneNumber" required value="<?php if (isset($_GET['inputPhoneNumber'])) { echo $_GET['phoneNumber']; } ?>">
-                    </div>
+    <label for="inputPhoneNumber" class="form-label">Phone Number</label>
+    <input type="tel" class="form-control" id="inputPhoneNumber" aria-describedby="phoneNumber"
+        name="inputPhoneNumber" required value="<?php if (isset($_GET['inputPhoneNumber'])) { echo $_GET['inputPhoneNumber']; } ?>" pattern="09\d{9}" maxlength="11" placeholder="09123456789" >
+</div>
 
                 </div>
-
 
                 <p class="text-[14px] font-medium text-sky-600 mt-4 mb-2">Account Details</p>
 
                 <div class="grid grid-cols-2 gap-x-3">
-
                     <div class="mb-3 col-span-2">
                         <label for="inputEmailAddress" class="form-label">Email address</label>
                         <input type="email" class="form-control" id="inputEmailAddress" aria-describedby="emailAddress"
@@ -123,23 +140,78 @@
 
                     <div class="mb-3 col-span-1">
                         <label for="inputConfirmPassword" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="inputConfirmPassword"
-                            name="inputConfirmPassword">
+                        <input type="password" class="form-control" id="inputConfirmPassword" name="inputConfirmPassword">
                     </div>
-
                 </div>
 
+                <div class="requirements">
+                    <div class="requirement">
+                        <span id="length-icon" class="icon">✘</span> At least 8 characters long
+                    </div>
+                    <div class="requirement">
+                        <span id="uppercase-icon" class="icon">✘</span> Contains at least one uppercase letter (A-Z)
+                    </div>
+                    <div class="requirement">
+                        <span id="lowercase-icon" class="icon">✘</span> Contains at least one lowercase letter (a-z)
+                    </div>
+                    <div class="requirement">
+                        <span id="number-icon" class="icon">✘</span> Contains at least one number (0-9)
+                    </div>
+                    <div class="requirement">
+                        <span id="special-icon" class="icon">✘</span> Contains at least one special character (e.g., @#$%^&+=_!)
+                    </div>
+                </div>
 
-                <button type="submit" class="btn btn-primary w-full py-3 mt-2" name="btnCreateAccount">Create
-                    Account</button>
-
+                <button type="submit" class="btn btn-primary w-full py-3 mt-2" name="btnCreateAccount">Register Account</button>
             </form>
+            <script>
+    document.getElementById('inputPhoneNumber').addEventListener('input', function() {
+        let value = this.value;
 
+        // Remove all non-digit characters
+        value = value.replace(/\D/g, '');
 
-        </div>
+        // Ensure the value starts with 09
+        if (!value.startsWith('09')) {
+            value = '09' + value;
+        }
 
-    </div>
+        // Limit the length to 11 characters
+        if (value.length > 11) {
+            value = value.substring(0, 11);
+        }
 
-</body>
+        this.value = value;
+    });
+</script>
 
-</html>
+            <script>
+    document.getElementById('inputPassword').addEventListener('input', function() {
+        const password = this.value;
+
+        // Length requirement
+        const lengthValid = password.length >= 8;
+        document.getElementById('length-icon').textContent = lengthValid ? '✔' : '✘';
+        document.getElementById('length-icon').className = lengthValid ? 'icon valid' : 'icon invalid';
+
+        // Uppercase requirement
+        const uppercaseValid = /[A-Z]/.test(password);
+        document.getElementById('uppercase-icon').textContent = uppercaseValid ? '✔' : '✘';
+        document.getElementById('uppercase-icon').className = uppercaseValid ? 'icon valid' : 'icon invalid';
+
+        // Lowercase requirement
+        const lowercaseValid = /[a-z]/.test(password);
+        document.getElementById('lowercase-icon').textContent = lowercaseValid ? '✔' : '✘';
+        document.getElementById('lowercase-icon').className = lowercaseValid ? 'icon valid' : 'icon invalid';
+
+        // Number requirement
+        const numberValid = /[0-9]/.test(password);
+        document.getElementById('number-icon').textContent = numberValid ? '✔' : '✘';
+        document.getElementById('number-icon').className = numberValid ? 'icon valid' : 'icon invalid';
+
+        // Special character requirement
+        const specialCharValid = /[@#$%^&+=_!]/.test(password);
+        document.getElementById('special-icon').textContent = specialCharValid ? '✔' : '✘';
+        document.getElementById('special-icon').className = specialCharValid ? 'icon valid' : 'icon invalid';
+    });
+</script>

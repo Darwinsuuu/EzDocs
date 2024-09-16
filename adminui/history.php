@@ -1,6 +1,6 @@
 <?php
 
-include_once("_conn/session.php");
+include_once("../_conn/adminsession.php");
 
 ?>
 
@@ -14,8 +14,8 @@ include_once("_conn/session.php");
 
     <!-- Includes -->
     <?php
-    include("_includes/styles.php");
-    include("_includes/scripts.php");
+    include("../_includes/styles.php");
+    include("../_includes/scripts.php");
     ?>
 
 </head>
@@ -25,14 +25,14 @@ include_once("_conn/session.php");
         <h1 class="font-bold text-[26px] text-white">EZDocs</h1>
         <ul class="flex flex-row gap-x-4 !p-0 !m-0 list-none">
             <li>
-                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="index.php">
+                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="dashboard.php">
                     Dashboard
                 </a>
             </li>
-            <!-- <li>
+            <li>
                 <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="history.php">
                     Claimed History
-                </a> -->
+                </a>
             </li>
             <li>
                 <a class="block text-white text-[17px] font-regular hover:no-underline px-3" id="btnLogout"
@@ -46,17 +46,18 @@ include_once("_conn/session.php");
     <div class="container pt-5">
 
         <div class="flex flex-row items-center justify-between">
-            <h1 class="text-[32px] font-bold">Hi there, <br><?php echo $_SESSION['fullName']; ?></h1>
+            <h1 class="text-[32px] font-bold">Hi there, <br><?php echo $_SESSION['name']; ?></h1>
 
-            <div class="flex flex-col gap-5">
+            <!-- <div class="flex flex-col gap-5">
 
                 <a class="btn btn-primary px-6 py-2" href="reqdocument.php">Request Document</a>
-            </div>
+            </div> -->
         </div>
+
 
         <div class="rounded shadow-lg mt-2 px-3 py-5">
             <?php
-            include_once('backend/be_showdashtable.php');
+            include_once('../backend/admin/be_claimhistory.php');
             ?>
             <!-- <table class="table" id="documentTableStudent">
                 <thead>
@@ -86,56 +87,52 @@ include_once("_conn/session.php");
             </table> -->
         </div>
 
-        <div class="flex flex-col gap-5 position-absolute bottom-40 start-30">
-            <a class="btn btn-primary px-6 py-2 left-position" href="digitalslip.php">Request Slip</a>
-        </div>
-
     </div>
     <script>
-        $(document).ready(function() {
-            function fetchStatuses() {
-                $.ajax({
-                    url: 'backend/be_getstatus.php',
-                    type: 'GET',
-                    success: function(response) {
-                        const statuses = JSON.parse(response);
-                        statuses.forEach(function(status) {
-                            $(`#status-${status.id}`).text(status.status);
-                        });
-                    }
+$(document).ready(function() {
+    function fetchStatuses() {
+        $.ajax({
+            url: 'backend/be_getstatus.php',
+            type: 'GET',
+            success: function(response) {
+                const statuses = JSON.parse(response);
+                statuses.forEach(function(status) {
+                    $(`#status-${status.id}`).text(status.status);
                 });
             }
-
-            // Fetch statuses every 30 seconds
-            setInterval(fetchStatuses, 30000);
         });
-    </script>
-    <script>
-        function pollStatus() {
-            const studentId = <?php echo json_encode($student_id); ?>; // Ensure $student_id is available in your page
+    }
 
-            fetch('path/to/be_getstatus.php?student_id=' + studentId)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Update the dashboard with new statuses
-                        updateDashboard(data.updates);
-                    } else {
-                        console.error(data.message);
-                    }
-                })
-                .catch(error => console.error('Error:', error));
-        }
+    // Fetch statuses every 30 seconds
+    setInterval(fetchStatuses, 30000);
+});
+</script>
+<script>
+function pollStatus() {
+    const studentId = <?php echo json_encode($student_id); ?>; // Ensure $student_id is available in your page
 
-        // Update your dashboard with new statuses
-        function updateDashboard(updates) {
-            // Implement your logic to update the dashboard UI
-            console.log(updates);
-        }
+    fetch('path/to/be_getstatus.php?student_id=' + studentId)
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update the dashboard with new statuses
+                updateDashboard(data.updates);
+            } else {
+                console.error(data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
 
-        // Poll every 10 seconds
-        setInterval(pollStatus, 10000);
-    </script>
+// Update your dashboard with new statuses
+function updateDashboard(updates) {
+    // Implement your logic to update the dashboard UI
+    console.log(updates);
+}
+
+// Poll every 10 seconds
+setInterval(pollStatus, 10000);
+</script>
 
 
 

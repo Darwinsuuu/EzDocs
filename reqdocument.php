@@ -24,17 +24,6 @@ include_once("_conn/session.php");
                     Dashboard
                 </a>
             </li>
-            <li>
-                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="#">
-                    FAQs
-                </a>
-            </li>
-            <li>
-                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" id="btnLogout"
-                    type="button">
-                    Logout
-                </a>
-            </li>
         </ul>
     </nav>
 
@@ -67,22 +56,23 @@ include_once("_conn/session.php");
                     <label>Grade Level</label>
                     <select name="gradelv" class="form-control">
                         <option disabled selected>-- Select option --</option>
-                        <option value="gd7">Grade 7</option>
-                        <option value="gd8">Grade 8</option>
-                        <option value="gd9">Grade 9</option>
-                        <option value="gd10">Grade 10</option>
-                        <option value="gd11">Grade 11</option>
-                        <option value="gd12">Grade 12</option>
+                        <option value="Grade 7">Grade 7</option>
+                        <option value="Grade 8">Grade 8</option>
+                        <option value="Grade 9">Grade 9</option>
+                        <option value="Grade 10">Grade 10</option>
+                        <option value="Grade 11">Grade 11</option>
+                        <option value="Grade 12">Grade 12</option>
                     </select>
                 </div>
                 <div class="col-span-2 mb-2">
                     <label>Document Request</label>
                     <select name="reqDoc" class="form-control">
                         <option disabled selected>-- Select option --</option>
-                        <option value="coe">Certificate of Enrollment</option>
-                        <option value="goodMoral">Good Moral</option>
-                        <option value="f137">Form 137/138</option>
-                        <option value="diploma">Diploma</option>
+                        <option value="Certificate of enrolment">Certificate of Enrollment</option>
+                        <option value="Certificate of Good Moral">Good Moral</option>
+                        <option value="Form 137">Form 137</option>
+                        <option value="Form 138">Form 138</option>
+                        <option value="Diploma">Diploma</option>
                     </select>
                 </div>
                 <div class="col-span-2 mb-2">
@@ -92,27 +82,10 @@ include_once("_conn/session.php");
             </div>
 
             <button class="btn btn-primary py-2 mt-2 w-full" type="submit" name="btnreqdoc">Request</button>
+            <button class="btn btn-secondary py-2 mt-2 w-full" href="index.php">Cancel</button>
 
         </form>
     </div>
-    
-    <script>
-        $('#btnLogout').click(function(e) {
-            Swal.fire({
-                title: "SIGN OUT",
-                text: "Are you sure you want to logout?",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#d33",
-                cancelButtonColor: "#3085d6",
-                confirmButtonText: "Logout"
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "backend/be_logout.php";
-                }
-            });
-        });
-    </script>
 </body>
 
 </html>

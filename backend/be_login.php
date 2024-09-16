@@ -21,7 +21,7 @@ if (isset($_POST["btnLogin"])) {
                 if (password_verify($password, $row['password'])) {
                     echo "test";
                     // Store studentId and emailAddress to session
-                    $_SESSION['studentId'] = $row["studentId"];
+                    $_SESSION['studentId'] = $row["studentId"];     
                     $_SESSION['fullName'] = $row["firstname"] . " " . $row["middlename"] . " " . $row["lastname"] . " " . $row["suffix"];
                     $_SESSION['emailAddress'] = $row["emailAddress"];
                     
