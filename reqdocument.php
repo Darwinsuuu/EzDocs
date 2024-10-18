@@ -43,6 +43,7 @@ include_once("_conn/session.php");
             }
 
             ?>
+            
             <div class="grid grid-cols-2 gap-x-2">
                 <div class="col-span-2 mb-2">
                     <label>Student ID No.</label>
@@ -52,6 +53,7 @@ include_once("_conn/session.php");
                     <label>Student Name</label>
                     <input class="form-control" type="text" name="studentName" value="<?php echo $_SESSION['fullName']; ?>" disabled>
                 </div>
+
                 <div class="col-span-2 mb-2">
                     <label>Grade Level</label>
                     <select name="gradelv" class="form-control">
@@ -64,6 +66,7 @@ include_once("_conn/session.php");
                         <option value="Grade 12">Grade 12</option>
                     </select>
                 </div>
+
                 <div class="col-span-2 mb-2">
                     <label>Document Request</label>
                     <select name="reqDoc" class="form-control">
