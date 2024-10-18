@@ -13,18 +13,34 @@ $(document).ready(function() {
 
 })
 
-// script.js
-document.addEventListener('DOMContentLoaded', function () {
-    const togglePassword = document.getElementById('togglePassword');
-    const passwordField = document.getElementById('password');
+// Get the forgot password button and password recovery form elements
+const forgotPasswordBtn = document.getElementById('forgot-password-btn');
+const passwordRecoveryForm = document.getElementById('password-recovery-form');
 
-    togglePassword.addEventListener('click', function () {
-        // Toggle the type attribute
-        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordField.setAttribute('type', type);
+// Add an event listener to the forgot password button
+forgotPasswordBtn.addEventListener('click', () => {
+  // Show the password recovery form
+  passwordRecoveryForm.style.display = 'block';
+});
 
-        // Toggle the eye icon
-        this.classList.toggle('fa-eye');
-        this.classList.toggle('fa-eye-slash');
-    });
+// Add an event listener to the send recovery email button
+const sendRecoveryEmailBtn = document.getElementById('send-recovery-email-btn');
+sendRecoveryEmailBtn.addEventListener('click', () => {
+  // Get the email address from the form
+  const email = document.getElementById('email').value;
+
+  // Send an AJAX request to the password recovery PHP script
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', 'password-recovery.php', true);
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  xhr.send(`email=${email}`);
+
+  // Handle the response from the server
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      alert('Password recovery email sent successfully!');
+    } else {
+      alert('Error sending password recovery email.');
+    }
+  };
 });

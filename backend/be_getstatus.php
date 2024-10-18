@@ -1,8 +1,6 @@
 <?php
 include_once("_conn/connection.php");
 
-// Log incoming GET data for debugging
-file_put_contents('getstatus.log', json_encode($_GET) . PHP_EOL, FILE_APPEND);
 
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);

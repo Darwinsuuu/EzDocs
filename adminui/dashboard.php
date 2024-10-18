@@ -10,7 +10,7 @@ $(document).ready(function() {
         const newStatus = $(this).val();
 
         $.ajax({
-            url: '../backend/admin/adminupdate.php',
+            url: '../backend/admin/update_status.php',
             type: 'POST',
             data: {
                 id: id,
@@ -54,36 +54,142 @@ include_once("../_conn/adminsession.php");
     include("../_includes/scripts.php");
     ?>
 
+    <style>
+        /* Global Styles */
+      body {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 16px;
+        line-height: 1.5;
+        background-color: #F7F7F7; /* Light gray */
+        color: #333333; /* Dark gray */
+      }
+
+      /* Header Styles */
+      nav {
+        background-color: #8BC34A; /* Mint green */
+        padding: 20px;
+        text-align: center;
+      }
+
+      nav h1 {
+        color: #FFFFFF;
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+
+      /* Navigation Styles */
+      nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      nav li {
+        margin-right: 20px;
+      }
+
+      nav a {
+        color: #FFFFFF;
+        text-decoration: none;
+      }
+
+      /* Main Content Styles */
+      .container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 20px;
+      }
+
+      .rounded {
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .shadow-lg {
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .mt-2 {
+        margin-top: 20px;
+      }
+
+      .px-3 {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .py-5 {
+        padding-top: 40px;
+        padding-bottom: 40px;
+      }
+
+      .bg-white {
+        background-color: #FFFFFF;
+      }
+
+      /* Table Styles */
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .table th, .table td {
+        border: 1px solid #ddd;
+        padding: 10px;
+        text-align: left;
+      }
+
+      .table th {
+        background-color: #8BC34A; /* Mint green */
+        color: #FFFFFF;
+      }
+
+      /* Button Styles */
+      .btn {
+        background-color: #FFC107; /* Warm orange */
+        color: #FFFFFF;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background-color: #FFA07A;
+      }
+    </style>
+
 </head>
 
 <body>
 
 
-    <nav class="flex flex-row items-center justify-between px-10 py-4 bg-slate-900">
+    <nav class="flex flex-row items-center justify-between px-10 py-4 bg-emerald-900">
         <h1 class="font-bold text-[26px] text-white">EZDocs</h1>
         <ul class="flex flex-row gap-x-4 !p-0 !m-0 list-none">
             <li>
-                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="studentacc.php">
-                    Student Accounts
+                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="../backend/admin/be_studentacc.php">
+                    Student
                 </a>
             </li>
             <li>
-                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="history.php">
+                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" href="../backend/admin/claimed_history.php">
                     Claimed History
                 </a>
             </li>
             <li>
-                <a class="block text-white text-[17px] font-regular hover:no-underline px-3" id="btnLogout"
-                    type="button">
+                <button class="block text-white text-[17px] font-regular hover:no-underline px-3" id="btnLogout">
                     Logout
-                </a>
+                </button>
             </li>
         </ul>
     </nav>
 
-    <div class="container pt-5">
+    <div class="container pt-5 ">
 
-        <div class="flex flex-row items-center justify-between">
+        <div class="flex flex-row items-center justify-between ">
             <h1 class="text-[32px] font-bold">Hi there, <br><?php echo $_SESSION['name']; ?></h1>
 
             <div class="flex flex-col gap-5">
@@ -106,14 +212,13 @@ include_once("../_conn/adminsession.php");
         </div>
 
 
-        <div class="rounded shadow-lg mt-2 px-3 py-5">
+        <div class="rounded shadow-lg mt-2 px-3 py-5 ">
             <?php
             include_once('../backend/admin/be_admindashtable.php');
             ?>
             <!-- <table class="table" id="documentTableStudent">
                 <thead>
                     <tr>
-                        <th scope="col">QR</th>
                         <th scope="col">Document Name</th>
                         <th scope="col">Date Requested</th>
                         <th scope="col">Suggested Claim Date</th>
@@ -123,10 +228,6 @@ include_once("../_conn/adminsession.php");
                 <tbody>
 
                     <tr>
-                        <td class="align-middle" scope="row">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg"
-                                alt="" width="50">
-                        </td>
                         <td class="align-middle">Docs1</td>
                         <td class="align-middle">August 31, 2024</td>
                         <td class="align-middle">September 7, 2024</td>
@@ -140,9 +241,6 @@ include_once("../_conn/adminsession.php");
 
     </div>
     <script>
-$(document).ready(function() {
-    // Initialize DataTables
-    $('#documentTableStudent').DataTable();
 
     // Handle dropdown change
     $('.status-dropdown').change(function() {
@@ -150,7 +248,7 @@ $(document).ready(function() {
         const newStatus = $(this).val();
 
         $.ajax({
-            url: '../backend/admin/adminupdate.php',
+            url: '../backend/admin/update_status.php',
             type: 'POST',
             data: {
                 id: id,
@@ -170,40 +268,9 @@ $(document).ready(function() {
             }
         });
     });
-});
 </script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('.status-dropdown').change(function() {
-        var status = $(this).val();
-        var id = $(this).data('id');
-
-        $.ajax({
-            url: '../backend/admin/update_status.php',
-            type: 'POST',
-            data: {
-                id: id,
-                status: status
-            },
-            success: function(response) {
-                console.log('Status updated successfully.');
-            },
-            error: function(xhr, status, error) {
-                console.error('Error updating status:', error);
-            }
-        });
-    });
-});
-</script>
-
-
-
 
     <script>
-        $(document).ready(function() {
-            $('#documentTableStudent').DataTable();
-        });
 
         $('#btnLogout').click(function(e) {
 

@@ -27,7 +27,6 @@ try {
         echo '<table class="table" id="documentTableStudent">
                 <thead>
                     <tr>
-                        <th scope="col">QR</th>
                         <th scope="col">Document Name</th>
                         <th scope="col">Date Requested</th>
                         <th scope="col">Suggested Claim Date</th>
@@ -43,10 +42,6 @@ try {
             $statusClass = strtolower($row['status']);
 
             echo '<tr>
-                    <td class="align-middle" scope="row">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/QR_code_for_mobile_English_Wikipedia.svg"
-                            alt="" width="50">
-                    </td>
                     <td class="align-middle">' . htmlspecialchars($row['reqDoc']) . '</td>
                     <td class="align-middle">' . htmlspecialchars($reqDate) . '</td>
                     <td class="align-middle">' . htmlspecialchars($claimDate) . '</td>

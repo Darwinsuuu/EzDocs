@@ -44,7 +44,7 @@ if (isset($_POST["btnCreateAccount"])) {
 
             if (mysqli_query($conn, $sql)) {
                 echo "<script>alert('Account successfully created')</script>";
-                header("Location: ../index.php");
+                header("Location: ../login.php");
             } else {
                 $errorMsg = mysqli_error($conn);
                 header("Location: ../registration.php?studentId=$studentId&firstname=$firstname&middlename=$middlename&lastname=$lastname&suffix=$suffix&gradeLevel=$gradeLevel&phoneNumber=$phoneNumber&emailAddress=$emailAddress&errorMsg=" . $errorMsg);
